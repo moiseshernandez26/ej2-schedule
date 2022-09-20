@@ -1,24 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./index.css";
+import {
+  ScheduleComponent,
+  ViewsDirective,
+  ViewDirective,
+  Day,
+  Week,
+  Month,
+  Inject,
+  Resize,
+} from "@syncfusion/ej2-react-schedule";
 
 function App() {
+  const data: object[] = [
+    {
+      Id: 1,
+      Subject: "Meeting - 1",
+      StartTime: new Date(2022, 8, 7, 5, 0),
+      EndTime: new Date(2022, 8, 7, 5, 30),
+      IsAllDay: false,
+    },
+  ];
+
+  console.log(data);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ScheduleComponent
+        selectedDate={new Date()}
+        eventSettings={{ dataSource: data }}
+      >
+        <ViewsDirective>
+          <ViewDirective
+            option="Day"
+            timeScale={{ enable: true, interval: 15, slotCount: 1 }}
+            
+          />
+          <ViewDirective option="Week" 
+          />
+          <ViewDirective option="Month" />
+        </ViewsDirective>
+        <Inject services={[Day, Week, Month, Resize]} />
+      </ScheduleComponent>
     </div>
   );
 }
